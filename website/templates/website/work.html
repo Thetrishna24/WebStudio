@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Work – Super Suburban</title>
+
+  <!-- Tailwind CDN -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Brittany font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Brittany&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    .font-brittany { font-family: 'Brittany', cursive; }
+    .site-logo { width: 30rem; }
+  </style>
+</head>
+
+<body class="bg-black text-white font-serif">
+
+  <!-- NAVBAR -->
+  <nav class="fixed top-0 w-full bg-black bg-opacity-90 text-white py-4 px-6 flex justify-between items-center z-50">
+    <div class="flex items-center">
+      <a href="{% url 'home' %}">
+        <img
+          src="{% static 'images/2.svg' %}"
+          alt="Suburban logo"
+          class="h-10"
+        />
+      </a>
+    </div>
+    <!-- Links -->
+    <div class="space-x-6 uppercase text-sm">
+      <a href="{% url 'home' %}"   class="hover:text-gray-300">Home</a>
+      <a href="{% url 'about' %}"  class="hover:text-gray-300">About Us</a>
+      <a href="{% url 'work' %}"   class="hover:text-gray-300">Our Work</a>
+      <a href="{% url 'contact' %}"class="hover:text-gray-300">Contact</a>
+    </div>
+  </nav>
+  <div class="h-16"></div>
+
+  <!-- BACKGROUND MAIN FOR WORK -->
+  <section
+    class="relative h-screen bg-cover bg-center"
+    style="background-image: url({% static 'images/work-bg.jpg' %});"
+  >
+    <!-- dark overlay -->
+    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+
+    <!-- content -->
+    <div class="relative z-10 flex flex-col items-center justify-center h-full space-y-8">
+      <h1 class="text-4xl md:text-5xl font-bold">Our Work</h1>
+      <div class="flex flex-col md:flex-row gap-6">
+        <a href="{% url 'photos' %}"
+           class="px-8 py-4 bg-white text-black font-semibold rounded hover:bg-gray-200 transition">
+          Photo Gallery
+        </a>
+        <a href="{% url 'videos' %}"
+           class="px-8 py-4 bg-white text-black font-semibold rounded hover:bg-gray-200 transition">
+          Video Gallery
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-6 bg-black text-center text-gray-500">
+    &copy; {{ now|date:"Y" }} Super Suburban
+  </footer>
+
+</body>
+</html>
