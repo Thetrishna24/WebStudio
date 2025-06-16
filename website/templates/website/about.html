@@ -7,15 +7,20 @@
 {% block content %}
   {% for block in about_blocks %}
     <section class="relative h-screen flex items-center justify-center text-center">
-      <!-- background image -->
       <img
         src="{{ block.background.url }}"
         alt="About background"
         class="absolute inset-0 w-full h-full object-cover opacity-60"
       />
-      <!-- text overlay -->
-      <div class="relative z-10 px-4 max-w-3xl">
-        <p class="text-2xl leading-relaxed text-white">{{ block.text }}</p>
+
+      <div class="relative z-10 px-4 max-w-3xl text-left text-white">
+        <ul class="list-disc list-inside space-y-2 text-2xl leading-relaxed">
+          {% for line in block.text.splitlines %}
+            {% if line %}
+            <li>{{ line }}</li>
+            {% endif %}
+          {% endfor %}
+        </ul>
       </div>
     </section>
   {% endfor %}
