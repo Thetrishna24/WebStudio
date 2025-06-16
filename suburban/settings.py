@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 
+from decouple import config
+import dj_database_url
+import django_heroku
+
 import environ 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -69,6 +73,8 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 ROOT_URLCONF = "suburban.urls"
 
