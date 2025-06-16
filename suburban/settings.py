@@ -39,12 +39,12 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "SECRET-KEY"
+SECRET_KEY = "django-insecure-spngtal3yw^3$euc4r##hd-tw8)tw=qlj+%nm8#id2um@po=kh"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

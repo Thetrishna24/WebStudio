@@ -3,6 +3,8 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Home – Super Suburban</title>
   <!-- Tailwind CDN -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" 
@@ -32,10 +34,10 @@
 <body class="bg-black text-black font-serif">
 
   <!-- NAVBAR -->
-  <nav class="fixed top-0 w-full bg-black bg-opacity-75 text-white py-4 px-6 flex justify-between items-center z-50">
+  <nav class="fixed top-0 w-full bg-black bg-opacity-90 text-white py-4 px-6 flex flex-col md:flex-row justify-between items-center z-50">
     <!-- Logo on the left -->
     <div class="flex items-center">
-      <a href="{% url 'home' %}">
+      <a href="{% url 'home' %}" class="mb-4 md:mb-0">
         <img
           src="{% static 'images/2.svg' %}"
           alt="Suburban logo"
@@ -44,21 +46,55 @@
       </a>
     </div>
   
-    <!-- Links -->
-    <div class="space-x-6 uppercase text-sm">
+    <!-- desktop links -->
+    <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6 uppercase text-sm">
       <a href="{% url 'home' %}"    class="hover:text-gray-300">Home</a>
       <a href="{% url 'about' %}"   class="hover:text-gray-300">About Us</a>
       <a href="{% url 'work' %}"    class="hover:text-gray-300">Our Work</a>
       <a href="{% url 'contact' %}" class="hover:text-gray-300">Contact</a>
     </div>
+
+    <!-- mobile -->
+    <button id="mobile-menu-button"
+            class="md:hidden text-white focus:outline-none">
+      <!-- 3-bar icon -->
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
   </nav>
-  <div class="h-20"></div>
+  <div class="h-20 md:h-16"></div>
+
+  <!-- off-canvas sidebar -->
+  <aside id="mobile-menu"
+         class="fixed inset-y-0 left-0 w-64 bg-black bg-opacity-95 transform -translate-x-full transition-transform duration-300 md:hidden z-40">
+    <div class="px-6 py-4 flex justify-between items-center">
+      <span class="text-white font-bold text-xl">Menu</span>
+      <button id="mobile-menu-close" class="text-white focus:outline-none">
+        &times;
+      </button>
+    </div>
+    <nav class="mt-6 flex flex-col space-y-4 px-6">
+      <a href="#" class="text-white uppercase">Home</a>
+      <a href="#" class="text-white uppercase">About Us</a>
+      <a href="#" class="text-white uppercase">Our Work</a>
+      <a href="#" class="text-white uppercase">Contact</a>
+    </nav>
+  </aside>
 
 
   <!-- MAIN SECTION -->
   {% if hero %}
   <section class="relative h-screen overflow-hidden">
-    <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover">
+    <video 
+      autoplay 
+      muted 
+      loop
+      playsinline
+      webkit-playsinline
+      class="absolute inset-0 w-full h-full object-cover"
+    >
       <source src="{{ hero.video.url }}" type="video/mp4">
     </video>
     <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center">
@@ -78,7 +114,7 @@
 
 
   <!-- CONTACT + FOLLOW US SECTION -->
-  <section class="bg-cover bg-center" style="background-image:url('{% static "images/contact-bg.jpg" %}');">
+  <section class="relative bg-cover bg-center" style="background-image:url({% static 'images/contact-bg.jpg' %});">
     <div class="bg-black bg-opacity-70 text-white">
       <div class="max-w-screen-xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-12">
 
@@ -144,6 +180,22 @@
                 />
               </svg>
             </a>
+
+            <!-- Twitter (added) -->
+            <a href="https://x.com/super_suburban?s=21" target="_blank" class="hover:text-yellow-500 transition" aria-label="X">
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 448 512"
+                class="w-6 h-6 text-current hover:text-yellow-500 transition"
+                role="img3"
+                aria-label="X"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm297.1 84L257.3 234.6 379.4 396H283.8L209 298.1 123.3 396H75.8l111-126.9L69.7 116h98l67.7 89.5L313.6 116h47.5zM323.3 367.6L153.4 142.9H125.1L296.9 367.6h26.3z"
+                  />
+              </svg>
+            </a>
           </div>
         </div>
 
@@ -160,16 +212,16 @@
       <div class="space-y-1">
         <p class="font-semibold">CONTACT</p>
         <p>
-          <a href="mailto:<!-- your email id -->"
+          <a href="mailto:supersuburban08@gmail.com"
              class="hover:underline text-yellow-400">
-             <!-- your email id -->
+              supersuburban08@gmail.com
           </a>
         </p>
         <p>
-          <!-- your contact number -->
-          <a href="tel:+1870"
+          <!-- contact number -->
+          <a href="tel:+18709197623"
              class="hover:underline text-yellow-400">
-            <!-- your contact number -->
+            (870)-919-7623
           </a>
         </p>
       </div>
@@ -178,6 +230,19 @@
       <p class="text-gray-400">&copy; {{ now|date:"Y" }} Super Suburban</p>
     </div>
   </footer>
+
+  <script>
+    const btnOpen  = document.getElementById('mobile-menu-button');
+    const btnClose = document.getElementById('mobile-menu-close');
+    const menu     = document.getElementById('mobile-menu');
+
+    btnOpen.addEventListener('click', () => {
+      menu.classList.remove('-translate-x-full');
+    });
+    btnClose.addEventListener('click', () => {
+      menu.classList.add('-translate-x-full');
+    });
+  </script>
 
 </body>
 </html>
