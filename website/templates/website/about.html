@@ -1,52 +1,10 @@
+{# website/templates/website/about.html #}
+{% extends "website/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <title>About Us – Super Suburban</title>
 
-  <!-- Tailwind CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" 
-        rel="stylesheet">
+{% block title %}About Us – Super Suburban{% endblock %}
 
-  <!-- Brittany font -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Brittany&display=swap"
-    rel="stylesheet"
-  />
-  <style>
-    .font-brittany { font-family: 'Brittany', cursive; }
-    .site-logo { width: 30rem; }
-  </style>
-</head>
-
-<body class="bg-black text-white font-serif">
-
-  <!-- NAVBAR -->
-  <nav class="fixed top-0 w-full bg-black bg-opacity-75 text-white py-4 px-6 flex justify-between items-center z-50">
-    <div class="flex items-center">
-      <a href="{% url 'home' %}">
-        <img
-          src="{% static 'images/2.svg' %}"
-          alt="Suburban logo"
-          class="h-10"
-        />
-      </a>
-    </div>
-    <!-- Links -->
-    <div class="space-x-6 uppercase text-sm">
-      <a href="{% url 'home' %}"   class="hover:text-gray-300">Home</a>
-      <a href="{% url 'about' %}"  class="hover:text-gray-300">About Us</a>
-      <a href="{% url 'work' %}"   class="hover:text-gray-300">Our Work</a>
-      <a href="{% url 'contact' %}"class="hover:text-gray-300">Contact</a>
-    </div>
-  </nav>
-  <!-- spacer -->
-  <div class="h-16"></div>
-
-  <!-- ABOUT BLOCKS -->
+{% block content %}
   {% for block in about_blocks %}
     <section class="relative h-screen flex items-center justify-center text-center">
       <!-- background image -->
@@ -57,10 +15,8 @@
       />
       <!-- text overlay -->
       <div class="relative z-10 px-4 max-w-3xl">
-        <p class="text-2xl leading-relaxed">{{ block.text }}</p>
+        <p class="text-2xl leading-relaxed text-white">{{ block.text }}</p>
       </div>
     </section>
   {% endfor %}
-
-</body>
-</html>
+{% endblock %}

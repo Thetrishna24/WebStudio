@@ -1,51 +1,38 @@
+{# website/templates/website/videos.html #}
+{% extends "website/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <title>Video Gallery – Super Suburban</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-black text-white font-sans">
 
-  <!-- NAVBAR -->
-  <nav class="fixed top-0 w-full bg-black bg-opacity-90 text-white py-4 px-6 flex justify-between items-center z-50">
-    <div class="flex items-center">
-      <a href="{% url 'home' %}">
+{% block title %}Video Gallery – Super Suburban{% endblock %}
+
+{% block content %}
+<section class="py-16 bg-gray-900 text-center">
+  <h2 class="text-3xl font-bold mb-8 text-white">Video Gallery</h2>
+
+  <div class="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
+    {% for video in videos %}
+    <div>
+      <a href="{{ video.video_url }}" target="_blank">
         <img
-          src="{% static 'images/2.svg' %}"
-          alt="Suburban logo"
-          class="h-10"
+          src="{{ video.thumbnail.url }}"
+          alt="{{ video.title }}"
+          class="w-full rounded shadow-lg mb-2"
         />
       </a>
+      <h3 class="font-semibold text-white">{{ video.title }}</h3>
     </div>
-    <div class="space-x-6 uppercase text-sm">
-      <a href="{% url 'home' %}"   class="hover:text-gray-300">Home</a>
-      <a href="{% url 'about' %}"  class="hover:text-gray-300">About Us</a>
-      <a href="{% url 'work' %}"   class="hover:text-gray-300">Our Work</a>
-      <a href="{% url 'contact' %}"class="hover:text-gray-300">Contact</a>
-    </div>
-  </nav>
-  <div class="h-16"></div>
+    {% endfor %}
+  </div>
 
-  <!-- VIDEO GALLERY -->
-  <section class="py-16 text-center">
-    <h2 class="text-3xl font-bold mb-8">Video Gallery</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
-      {% for video in videos %}
-      <div>
-        <a href="{{ video.video_url }}" target="_blank">
-          <img src="{{ video.thumbnail.url }}" alt="{{ video.title }}"
-               class="rounded shadow-lg mb-2">
-        </a>
-        <h3 class="font-semibold">{{ video.title }}</h3>
-      </div>
-      {% endfor %}
-    </div>
-    <a href="{% url 'work' %}" class="underline mt-8 inline-block">Back to Our Work</a>
-  </section>
+  <a
+    href="{% url 'work' %}"
+    class="mt-8 inline-block text-yellow-500 hover:text-yellow-400 underline"
+  >
+    ← Back to Our Work
+  </a>
+</section>
 
-</body>
-</html>
+<!-- FOOTER -->
+<footer class="py-8 bg-black text-center text-gray-500">
+  &copy; {{ now|date:"Y" }} Super Suburban
+</footer>
+{% endblock %}
